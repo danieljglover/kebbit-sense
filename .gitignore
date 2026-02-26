@@ -1,0 +1,11 @@
+build/
+.gradle/
+.idea/
+*.iml
+out/
+bin/
+*.class
+.DS_Store
+.claude/
+docs/
+firebase-debug.log

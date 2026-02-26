@@ -1,0 +1,55 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	mavenLocal()
+	maven {
+		url = 'https://repo.runelite.net'
+		content {
+			includeGroupByRegex("net\\.runelite.*")
+		}
+	}
+	mavenCentral()
+}
+
+def runeLiteVersion = 'latest.release'
+
+dependencies {
+	compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
+
+	compileOnly 'org.projectlombok:lombok:1.18.40'
+	annotationProcessor 'org.projectlombok:lombok:1.18.40'
+
+	testImplementation 'junit:junit:4.12'
+	testImplementation group: 'net.runelite', name: 'client', version: runeLiteVersion
+	testImplementation group: 'net.runelite', name: 'jshell', version: runeLiteVersion
+}
+
+group = 'com.darkkebbit'
+version = '1.0-SNAPSHOT'
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8'
+	options.release.set(11)
+}
+
+test {
+	failOnNoDiscoveredTests = false
+}
+
+apply plugin: 'application'
+
+application {
+	mainClass = 'com.darkkebbit.DarkKebbitPluginTest'
+}
+
+run {
+	classpath = sourceSets.test.runtimeClasspath
+	jvmArgs '-ea',
+		'--add-opens', 'java.desktop/com.apple.eawt=ALL-UNNAMED',
+		'--add-opens', 'java.desktop/sun.awt=ALL-UNNAMED',
+		'--add-opens', 'java.desktop/java.awt=ALL-UNNAMED',
+		'--add-opens', 'java.desktop/javax.swing=ALL-UNNAMED',
+		'--add-exports', 'java.desktop/com.apple.eawt=ALL-UNNAMED'
+}
