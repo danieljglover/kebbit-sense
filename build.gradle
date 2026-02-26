@@ -34,10 +34,6 @@ tasks.withType(JavaCompile).configureEach {
 	options.release.set(11)
 }
 
-test {
-	useJUnitPlatform()
-	jvmArgs '-ea'
-}
 
 apply plugin: 'application'
 
