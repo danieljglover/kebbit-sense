@@ -35,7 +35,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 test {
-	failOnNoDiscoveredTests = false
+	useJUnitPlatform()
+	jvmArgs '-ea'
 }
 
 apply plugin: 'application'
